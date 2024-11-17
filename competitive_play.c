@@ -9,11 +9,13 @@
 // Reset color
 #define RESET "\033[0m"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
-#include<windows.h>
-#include<conio.h>
+#include <time.h>
+#include <windows.h>
+#include <conio.h>
+#include <mmsystem.h>
 
 
 struct users {
