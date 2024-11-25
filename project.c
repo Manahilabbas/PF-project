@@ -360,7 +360,7 @@ void word_guess() {
 	char word[MAX_WORD_LENGTH];
     char guessedWord[MAX_WORD_LENGTH];
     int wordLength;
-    int tries = MAX_TRIES;
+    int tries;
     char guess;
     int total = 0, score = 0;
 int highscore2 = 0;
@@ -376,6 +376,7 @@ int highscore2 = 0;
 
     printf("Current High Score: %d\n", highscore2);
 while (1) {
+        tries = MAX_TRIES;
         total++;
 
         printf("Enter the word to be guessed: ");
