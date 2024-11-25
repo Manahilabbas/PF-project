@@ -115,7 +115,103 @@ void competitive_play() {
     end_sound();
 }
 
+//function to play solo play
+void solo_play() {
+    int level;
+    int score =0, total = 0;
 
+    int highscore1 = 0;
+    FILE *file = fopen("highscore1.txt", "r");
+    if (file)// if fileexist or have some value 
+     {
+        fscanf(file, "%d", &highscore1); // Read the current high score
+        fclose(file);
+    } else {
+        // If the file doesn't exist, create it and initialize high score to 0
+        file = fopen("highscore1.txt", "w");
+        fprintf(file, "0");
+        fclose(file);
+    }
+    
+printf("Enter the level: \n 1. Easy\n 2. Medium\n 3. Hard\n");
+    printf("Current High Score: %d\n", highscore1);
+    scanf("%d", &level);
+//laiba>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+char guessedWord[MAX_WORD_LENGTH];
+        memset(guessedWord, '-', length);
+        guessedWord[length] = '\0';
+         
+         char guess;
+        int tries = MAX_TRIES;
+        int correctGuess;
+
+        displayWord(guessedWord, length);
+        hangman(tries);
+
+        while (tries > 0) 
+        {
+            printf("Guess the letter: ");
+            scanf(" %c", &guess); 
+            guess = tolower(guess);
+            correctGuess = processGuess(guess, selectedWord, guessedWord, length);
+           
+            if (correctGuess == 0) {
+                tries--;
+                printf("Incorrect guess. You have %d tries left.\n", tries);
+                sound();
+            }
+
+            displayWord(guessedWord, length);
+            hangman(tries);
+
+            if (strcmp(guessedWord, selectedWord) == 0) {
+                printf("Congratulations! You've guessed the word: %s\n", selectedWord);
+                soundallcorrect();
+                score++;
+                break;
+            }
+
+            if (tries == 0) {
+                printf("Sorry, you've run out of tries. The word was: %s\n", selectedWord);// user use all his tries how he is nor able to guseed fusrther words display the he supposed to gussed 
+                soundwrong();
+            }
+        }
+//laiba>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
+}
+
+
+void word_guess() {
+int highscore2 = 0;
+    FILE *file = fopen("highscore2.txt", "r");
+    if (file) {
+        fscanf(file, "%d", &highscore2);
+        fclose(file);
+    } else {
+        file = fopen("highscore2.txt", "w");
+        fprintf(file, "0");
+        fclose(file);
+    }
+
+    printf("Current High Score: %d\n", highscore2);
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
+if (score > highscore2) {
+                printf("Congratulations! You've set a new high score: %d\n", score);
+                FILE *file = fopen("highscore2.txt", "w");
+                fprintf(file, "%d", score); 
+                fclose(file);
+            } else {
+                printf("High Score remains: %d\n", highscore2);
+            }
+            endsound();
+            break;
+        } else {
+            continue;
+        }
+    }
+}
+
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void playTurn(struct users *player, const char *selectedWord, const char *selectedHint) {
     printf("%s's turn\n", player->name);
     printf("Hint: %s\n", selectedHint);
@@ -167,6 +263,8 @@ int i;
         }
     }
 }
+
+
 //....................
 
 
