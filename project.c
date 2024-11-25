@@ -325,6 +325,20 @@ char guessedWord[MAX_WORD_LENGTH];
         scanf("%d", &choice);
         if (choice == 2) {
             printf("Total games played: %d\nGames won: %d\nGames lost: %d\n", total, score, total - score);
+		 if (score > highscore1) {
+                printf("Congratulations! You've set a new high score: %d\n", score);
+                FILE *file = fopen("highscore1.txt", "w");
+                fprintf(file, "%d", score); 
+                fclose(file);
+            } else {
+                printf("High Score remains: %d\n", highscore1);
+            }
+
+            endsound();// play end sound
+            break;// break the loop while(1)
+        }
+    }
+
             //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
 }
 
