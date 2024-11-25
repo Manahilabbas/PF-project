@@ -416,7 +416,7 @@ while (1) {
 
         memset(guessedWord, '_', wordLength);
         guessedWord[wordLength] = '\0';
-        printf("tour hint is %s",hint);
+        printf("\n Hint: %s\n ",hint);
          displayWord(guessedWord, wordLength);
             hangman(tries);
         while (tries > 0) {
