@@ -8,6 +8,7 @@ struct users {
 
 int processGuess(char guess, const char word[], char guessedWord[], int wordLength);
 void displayWord(const char guessedWord[], int wordLength);
+void hangman(int guesses); 
 
 void sound(); 
 void soundwrong();
@@ -16,6 +17,18 @@ void endsound();
 void end_sound();
 void startsound();
 void playTurn(struct users *player, const char *selectedWord, const char *selectedHint);
+// Bold high-intensity blue for hangman structure
+#define BHBLU "\033[1;94m"
+
+// Bold high-intensity red for hangman figure
+#define RED "\e[0;31m"
+#define GRN "\e[0;32m"
+#define YEL "\e[0;33m"
+
+// Reset color
+#define RESET "\033[0m"
+// standard library functions... will explain 
+
 
 #include <stdlib.h>
 #include <string.h>
@@ -344,6 +357,12 @@ char guessedWord[MAX_WORD_LENGTH];
 
 
 void word_guess() {
+	char word[MAX_WORD_LENGTH];
+    char guessedWord[MAX_WORD_LENGTH];
+    int wordLength;
+    int tries = MAX_TRIES;
+    char guess;
+    int total = 0, score = 0;
 int highscore2 = 0;
     FILE *file = fopen("highscore2.txt", "r");
     if (file) {
@@ -356,7 +375,78 @@ int highscore2 = 0;
     }
 
     printf("Current High Score: %d\n", highscore2);
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
+while (1) {
+        total++;
+
+        printf("Enter the word to be guessed: ");
+        char hidden_word[100];
+        int i = 0;
+        while (1) {
+            char ch = getch();  
+            if (ch == '\r') { 
+                hidden_word[i] = '\0';
+                break;
+            } else if (ch == '\b') { 
+                if (i > 0) {
+                    i--;
+                    printf("\b \b"); 
+                }
+            } else {
+                hidden_word[i++] = ch;
+                printf("*");
+            }
+        }
+        printf("\n");
+
+        strncpy(word, hidden_word, MAX_WORD_LENGTH - 1); 
+        word[MAX_WORD_LENGTH - 1] = '\0';
+        wordLength = strlen(word);
+
+        for (i = 0; i < wordLength; i++) {
+            if (!isalpha(word[i])) {
+                printf("Invalid character detected! Only alphabetic characters are allowed.\n");
+                return; 
+            }
+            word[i] = tolower(word[i]); 
+        }
+    printf("enetr hint:\n");
+    char*hint;
+    scanf("%s",hint);
+    
+
+        memset(guessedWord, '_', wordLength);
+        guessedWord[wordLength] = '\0';
+        printf("tour hint is %s",hint);
+         displayWord(guessedWord, wordLength);
+            hangman(tries);
+        while (tries > 0) {
+
+            printf("\nGuess the letter: ");
+            scanf(" %c", &guess); 
+            guess = tolower(guess); 
+            int correctGuess = processGuess(guess, word, guessedWord, wordLength);
+
+            if (correctGuess == 0) {
+                tries--;
+                printf("Incorrect guess. You have %d tries left.\n", tries);
+                sound();
+            }
+
+            displayWord(guessedWord, wordLength);
+            hangman(tries);
+
+            if (strcmp(guessedWord, word) == 0) {
+                printf("Congratulations! You've guessed the word: %s\n", word);
+                score++;
+                soundallcorrect();
+                break;
+            }
+
+            if (tries == 0) {
+                printf("Sorry, you've run out of tries. The word was: %s\n", word);
+                soundwrong();
+            }
+        }
     printf("Do you want to play again: \n 1. Yes \n 2. No\n");
         int choice;
         scanf("%d", &choice);
@@ -527,6 +617,68 @@ void end_sound()
     // Stop and close the mp3
     mciSendString("stop myMP3", NULL, 0, NULL);
     mciSendString("close myMP3", NULL, 0, NULL);
+}
+void hangman(int guesses) {
+    switch (guesses) {
+        case 6:
+            printf(BHBLU" ==----== \n"RESET);
+            printf(BHBLU" |      | \n"RESET);
+            printf(BHBLU"        | \n"RESET);
+            printf(BHBLU"        | \n"RESET);
+            printf(BHBLU"        | \n"RESET);
+            printf(BHBLU"        | \n"RESET);
+            break;
+        case 5:
+            printf(BHBLU" ==----== \n"RESET);
+            printf(GRN" |"     BHBLU"      | \n"RESET);
+            printf(GRN" O  "   BHBLU"    | \n"RESET);
+            printf(BHBLU"        | \n"RESET);
+            printf(BHBLU"        | \n"RESET);
+            printf(BHBLU"        | \n"RESET);
+            break;
+        case 4:
+            printf(BHBLU" ==----== \n"RESET);
+            printf(GRN" | "     BHBLU"     | \n"RESET);
+            printf(GRN" O "     BHBLU"     | \n"RESET);
+            printf(GRN" | "    BHBLU"     | \n"RESET);
+            printf(BHBLU"        | \n"RESET);
+            printf(BHBLU"        | \n"RESET);
+            break;
+        case 3:
+            printf(BHBLU" ==----== \n"RESET);
+            printf(YEL" | "     BHBLU"     | \n"RESET);
+            printf(YEL" O "     BHBLU"     | \n"RESET);
+            printf(YEL" |"YEL"\\ "    BHBLU"    | \n"RESET);
+            printf(BHBLU"        | \n"RESET);
+            printf(BHBLU"        | \n"RESET);
+            break;
+        case 2:
+            printf(BHBLU" ==----== \n"RESET);
+            printf(YEL" | "     BHBLU"     | \n"RESET);
+            printf(YEL" O "     BHBLU"     | \n"RESET);
+            printf(YEL"/"YEL"|"YEL"\\"   BHBLU"     | \n"RESET);
+            printf(BHBLU"        | \n"RESET);
+            printf(BHBLU"        | \n"RESET);
+            break;
+        case 1:
+            printf(BHBLU" ==----== \n"RESET);
+            printf(RED" | "     BHBLU"     | \n"RESET);
+            printf(RED" O "     BHBLU"     | \n"RESET);
+            printf(RED"/"RED"|"RED"\\"   BHBLU"     | \n"RESET);
+            printf(RED"/"       BHBLU"       | \n"RESET);
+            printf(BHBLU"        | \n"RESET);
+            break;
+    
+        case 0:
+            printf(BHBLU " ==----== \n" RESET);
+            printf(RED " | "     BHBLU "     | \n" RESET);
+            printf(RED " O "     BHBLU "     | \n" RESET);
+            printf(RED "/" RED "|" RED "\\" BHBLU "     | \n" RESET);
+            printf(RED "/ \\ " BHBLU "    | \n" RESET);
+            printf(BHBLU"        | \n"RESET);
+            break;
+       
+    }
 }
 
 
