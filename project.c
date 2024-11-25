@@ -681,6 +681,14 @@ void hangman(int guesses) {
     }
 }
 
+void displayWord(const char guessedWord[], int wordLength) {
+    printf("Word: ");
+    for (int i = 0; i < wordLength; i++) {
+        printf("%c ", guessedWord[i]);
+    }
+    printf("\n");
+}
+
 
 
 
