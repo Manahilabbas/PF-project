@@ -124,10 +124,6 @@ int main() {
         printf("3. Solo Play\n");
         printf("4. Exit\n");
 
-        while (!kbhit()) {
-            Sleep(100);  
-        }
-
         endsound();
         getchar();
         scanf("%d", &choice);
