@@ -487,6 +487,7 @@ void playTurn(struct users *player, const char *selectedWord, const char *select
     while (tries > 0) {
         printf("Guess the letter: ");
         scanf(" %c", &guess);
+	guess=tolower(guess);
         correctGuess = 0;
 int i;
         for ( i = 0; i < length; i++) {
