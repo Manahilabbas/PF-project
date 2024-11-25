@@ -688,7 +688,16 @@ void displayWord(const char guessedWord[], int wordLength) {
     }
     printf("\n");
 }
-
+int processGuess(char guess, const char word[], char guessedWord[], int wordLength) {//this function have been discussed in solo_play mode
+    int correctGuess = 0;
+    for (int i = 0; i < wordLength; i++) {
+        if (word[i] == guess && guessedWord[i] != guess) {
+            guessedWord[i] = guess;
+            correctGuess = 1;
+        }
+    }
+    return correctGuess;
+}
 
 
 
