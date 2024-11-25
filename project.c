@@ -7,6 +7,15 @@ struct users {
 
 
 int processGuess(char guess, const char word[], char guessedWord[], int wordLength);
+void displayWord(const char guessedWord[], int wordLength);
+
+void sound(); 
+void soundwrong();
+void soundallcorrect();
+void endsound(); 
+void end_sound();
+void startsound();
+void playTurn(struct users *player, const char *selectedWord, const char *selectedHint);
 
 #include <stdlib.h>
 #include <string.h>
@@ -24,6 +33,68 @@ void solo_play();
 #define MAX_HINT_LENGTH 50
 #define MAX_WORDS 25
 #define MAX_TRIES 6
+
+const char *easyWordList[MAX_WORDS] = {
+    "computer", "apple", "guitar", "library", "lion", 
+    "biology", "football", "mountain", "chocolate", "ocean", 
+    "eagle", "architecture", "jupiter", "nest", "dinosaur", 
+    "rainbow", "microscope", "cat", "bed", "whale", 
+    "table", "python", "gravity", "rose", "laptop"
+};
+
+const char *easyHintList[MAX_WORDS] = {
+    "electronic device", "fruit", "musical instrument", "A place where books are kept", 
+    "animal", "The science of life", "physical game", "natural place", "A sweet", "natural place", 
+    "bird", "profession", "planet", "related to birds", 
+    "large reptile", "something that occurs in ra in", 
+    "A tool", "animal", "furniture", "mammal", 
+    "furniture", "A popular programming language", 
+    "force exerted by earth", "flower", 
+    "electronic device"
+};
+
+const char *mediumWordList[MAX_WORDS] = {
+    "engineer", "diamond", "bicycle", "planetarium", "volcano",
+    "oxygen", "ecosystem", "photograph", "satellite", "galaxy",
+    "amphibian", "constellation", "asteroid", "blueprint", "currency",
+    "eclipse", "forestry", "histogram", "molecule", "symphony",
+    "telescope", "architecture", "radiation", "astronomy", "sculpture"
+};
+
+const char *mediumHintList[MAX_WORDS] = {
+    "designs and builds", "precious gemstone", "two-wheeled vehicle",
+    "celestial observation", "erupts with lava",
+    "breathable gas", "community of organisms", "camera image",
+    "object in orbit", "star system",
+    "land-water animal", "star pattern", "space rock",
+    "detailed building plan", "money system",
+    "shadowed event", "manages forests", "data graph",
+    "chemical particle", "musical composition",
+    "far-seeing instrument", "building design", "emitted energy",
+    "study of space", "3D art form"
+};
+
+const char *hardWordList[MAX_WORDS] = {
+    "photosynthesis", "quarantine", "cryptography", "hypothesis", "metamorphosis",
+    "neuroscience", "antiquarian", "epistemology", "isotope", "bioinformatics",
+    "telecommunication", "psychoanalysis", "thermodynamics", "infrastructure", "nanotechnology",
+    "topography", "cytogenetics", "cartography", "symbiosis", "hydrodynamics",
+    "bioluminescence", "circumnavigate", "phytoplankton", "paleontology", "microbiology"
+};
+
+const char *hardHintList[MAX_WORDS] = {
+    "plant energy process", "isolation period", "secret writing science",
+    "educated guess", "transformation process",
+    "brain study", "collector of antiques", "study of knowledge",
+    "variant of element", "biology and data",
+    "long-distance communication", "mind analysis", "heat and energy",
+    "basic physical structures", "small-scale technology",
+    "land surface mapping", "study of chromosomes", "mapmaking process",
+    "mutualistic relationship", "fluid in motion",
+    "natural light emission", "sail around", "tiny marine plants",
+    "study of fossils", "small organism study"
+};
+
 
 
 int main() {
@@ -95,9 +166,51 @@ void competitive_play() {
     printf("How many rounds would you like to play? ");
     scanf("%d", &rounds);
 
-    while (flag < rounds) {
- //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    while (flag < rounds) {int randomIndex1 = rand() % MAX_WORDS; // Random word for player 1
+        int randomIndex2 = rand() % MAX_WORDS; // Random word for player 2
 
+        const char *selectedWord1;
+        const char *selectedHint1;
+
+        const char *selectedWord2;
+        const char *selectedHint2;
+
+        switch (mode) {
+            case 1:
+                selectedWord1 = easyWordList[randomIndex1];
+                selectedHint1 = easyHintList[randomIndex1];
+                break;
+            case 2:
+                selectedWord1 = mediumWordList[randomIndex1];
+                selectedHint1 = mediumHintList[randomIndex1];
+                break;
+            case 3:
+                selectedWord1 = hardWordList[randomIndex1];
+                selectedHint1 = hardHintList[randomIndex1];
+                break;
+            default:
+                printf("Invalid mode\n");
+                return;
+        }
+
+        switch (mode) {
+            case 1:
+                selectedWord2 = easyWordList[randomIndex2];
+                selectedHint2 = easyHintList[randomIndex2];
+                break;
+            case 2:
+                selectedWord2 = mediumWordList[randomIndex2];
+                selectedHint2 = mediumHintList[randomIndex2];
+                break;
+            case 3:
+                selectedWord2 = hardWordList[randomIndex2];
+                selectedHint2 = hardHintList[randomIndex2];
+                break;
+            default:
+                printf("Invalid mode\n");
+                return;
+        }
+        
         playTurn(&player1, selectedWord1, selectedHint1);
 
         playTurn(&player2, selectedWord2, selectedHint2);
@@ -135,8 +248,38 @@ void solo_play() {
     
 printf("Enter the level: \n 1. Easy\n 2. Medium\n 3. Hard\n");
     printf("Current High Score: %d\n", highscore1);
-    scanf("%d", &level);
-//laiba>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    scanf("%d", &level);getchar(); // To consume the leftover newline from scanf
+
+    while (1) {
+        total++;// how many timee will run means user play game that times
+        srand(time(0));// for geeting random index
+        int randomIndex = rand() % MAX_WORDS;// mode of max word makes sure that word hould be in range of 0 to 25
+
+        const char *selectedWord;
+        const char *selectedHint;
+
+        switch (level) {
+            case 1:
+                selectedWord = easyWordList[randomIndex];//select word from list at indexrandom index
+                selectedHint = easyHintList[randomIndex];//hint of that word is placed in same index of string of hint as sting of word placed
+                break;
+            case 2:
+                selectedWord = mediumWordList[randomIndex];
+                selectedHint = mediumHintList[randomIndex];
+                break;
+            case 3:
+                selectedWord = hardWordList[randomIndex];
+                selectedHint = hardHintList[randomIndex];
+                break;
+            default:
+                printf("Invalid level\n");
+                return;
+        }
+
+        int length = strlen(selectedWord);
+        printf("Hint: %s\n", selectedHint);
+        printf("Length = %d\n", length);
+        
 char guessedWord[MAX_WORD_LENGTH];
         memset(guessedWord, '-', length);
         guessedWord[length] = '\0';
@@ -176,7 +319,13 @@ char guessedWord[MAX_WORD_LENGTH];
                 soundwrong();
             }
         }
-//laiba>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
+        printf("Do you want to play again?\n");// ask the user if he wants to play again 
+        printf("1. Yes\n2. No\n");
+        int choice;
+        scanf("%d", &choice);
+        if (choice == 2) {
+            printf("Total games played: %d\nGames won: %d\nGames lost: %d\n", total, score, total - score);
+            //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
 }
 
 
@@ -194,6 +343,11 @@ int highscore2 = 0;
 
     printf("Current High Score: %d\n", highscore2);
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
+    printf("Do you want to play again: \n 1. Yes \n 2. No\n");
+        int choice;
+        scanf("%d", &choice);
+        if (choice == 2) {
+            printf("Game played=%d \nGame won=%d \nGame lost=%d\n", total, score, total - score);
 if (score > highscore2) {
                 printf("Congratulations! You've set a new high score: %d\n", score);
                 FILE *file = fopen("highscore2.txt", "w");
@@ -266,6 +420,100 @@ int i;
 
 
 //....................
+void sound()
+{
+	Beep(400,1000);
+}
+//.........................
+void soundwrong()
+{
+// Open the mp3 file
+    mciSendString("open \"sound4.mp3\" type mpegvideo alias myMP3", NULL, 0, NULL);
+        
+
+    // Play the mp3 file (non-blocking)
+    mciSendString("play myMP3", NULL, 0, NULL);
+    // Wait for user input to stop playback
+    while (1) {
+        Sleep(1000); // Pause for 1 second between prints
+        if (kbhit()) {
+        	getchar();
+        	break;
+    	}
+	}
+
+    // Stop and close the mp3
+    mciSendString("stop myMP3", NULL, 0, NULL);
+    mciSendString("close myMP3", NULL, 0, NULL);
+}
+//..............................................
+
+void soundallcorrect()
+{
+		// Open the mp3 file
+    mciSendString("open \"sound2.mp3\" type mpegvideo alias myMP3", NULL, 0, NULL);
+        
+
+    // Play the mp3 file (non-blocking)
+    mciSendString("play myMP3", NULL, 0, NULL);
+    // Wait for user input to stop playback
+    while (1) {
+        Sleep(1000); // Pause for 1 second between prints
+        if (kbhit()) {
+        	getchar();
+        	break;
+    	}
+	}
+
+    // Stop and close the mp3
+    mciSendString("stop myMP3", NULL, 0, NULL);
+    mciSendString("close myMP3", NULL, 0, NULL);
+}
+//................................................
+void endsound()
+{
+		// Open the mp3 file
+    mciSendString("open \"sound1.mp3\" type mpegvideo alias myMP3", NULL, 0, NULL);
+        
+
+    // Play the mp3 file (non-blocking)
+    mciSendString("play myMP3", NULL, 0, NULL);
+    // Wait for user input to stop playback
+    while (1) {
+        Sleep(1000); // Pause for 1 second between prints
+        if (kbhit()) {
+        	getchar();
+        	break;
+    	}
+	}
+
+    // Stop and close the mp3
+    mciSendString("stop myMP3", NULL, 0, NULL);
+    mciSendString("close myMP3", NULL, 0, NULL);
+}
+
+//...................................................
+void startsound() {
+    // Open the mp3 file
+    mciSendString("open \"sound5.mp3\" type mpegvideo alias myMP3", NULL, 0, NULL);
+    
+    // Play the mp3 file (non-blocking)
+    mciSendString("play myMP3", NULL, 0, NULL);
+}
+
+
+//.............................................................
+void end_sound()
+{
+		// Open the mp3 file
+    mciSendString("open \"sound1.mp3\" type mpegvideo alias myMP3", NULL, 0, NULL);
+    // Play the mp3 file (non-blocking)
+    mciSendString("play myMP3", NULL, 0, NULL);
+        Sleep(10000); 
+    // Stop and close the mp3
+    mciSendString("stop myMP3", NULL, 0, NULL);
+    mciSendString("close myMP3", NULL, 0, NULL);
+}
 
 
 
