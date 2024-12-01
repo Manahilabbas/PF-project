@@ -33,14 +33,14 @@ To run the Hangman game, ensure you have the following installed:
      After successful compilation Run:\
       `./playsound`
 
-2. #**On Visual Studio Code:**
+2. # **On Visual Studio Code:**\
   1.**Open VS Code and open the Hangman project folder:**\
     Go to File > Open Folder and select the folder containing your Hangman project files, including the sound files.\
     Open the Terminal in VS Code.
 2. **Compile the Game:**\
     In the terminal, run this command to compile your C file with sound support:\
-   `gcc -o play_sound filename.c -lwinmm`
-3.**Run the Game:**\
+     `gcc -o play_sound filename.c -lwinmm`
+3. **Run the Game:**\
     After compilation, run this command in the terminal:\
    `./playound`
 # Game Modes
