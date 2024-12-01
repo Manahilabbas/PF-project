@@ -44,10 +44,9 @@ To run the Hangman game, ensure you have the following installed:
    In the terminal, run this command to compile your C file with sound support:  
    ```bash
    gcc -o play_sound filename.c -lwinmm
- 3.  **Run the game:**\
-     After successful compilation Run:
-     ``bash
-     ./playsound
+3. **Run the Game:**
+    After compilation, run this command in the terminal:
+`./play_sound`
 
      
 # Game Modes
