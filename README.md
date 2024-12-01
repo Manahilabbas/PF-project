@@ -7,17 +7,17 @@ A Hangman game built in C that can be played in the Command Prompt or Visual Stu
 + Ariza Iqbal (24k-0854)
 # Requirments
 To run the Hangman game, ensure you have the following installed:
-+ # Windows OS:
++  Windows OS:
   The game is designed to run on Windows due to sound library compatibility.
-+ # GCC Compiler:
++  GCC Compiler:
   Install **MinGW** or another GCC-based compiler to compile the C code.
   [MinGW Download](https://sourceforge.net/projects/mingw/)
-+ # WiMM Library:
++  WiMM Library:
   Used for sound effects. Ensure the `-lwinmm` flag is used during compilation.
-+ # Visual Studio Code:
++  Visual Studio Code:
   Recommended IDE for running and debugging the game.
   [Download Visual Studio Code](https://code.visualstudio.com/download)
-+ # C/C++ Extension for VS Code:
++  C/C++ Extension for VS Code:
   Install the C/C++ extension by Microsoft for compiling and debugging C code in VS Code.
 
 # 
