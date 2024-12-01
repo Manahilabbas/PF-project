@@ -27,22 +27,24 @@ To run the Hangman game, ensure you have the following installed:
   + Click on the folder path bar at the top, type cmd, and press Enter. This will open Command Prompt in that folder.
 
  2. **Compile the Game:**\
-     Run the following command to compile the C file with sound support
-     `gcc -o play_sound filename.c -lwinmm`
- 3. **Run the game:**\
-     After successful compilation Run:\
-      `./playsound`
+     Run the following command to compile the C file with sound support:
+    ```
+    gcc -o play_sound filename.c -lwinmm
+ 4. **Run the game:**\
+     After successful compilation Run:
+    ```bash
+    ./playsound
 
 ### 2. **On Visual Studio Code:**
 
 1. **Open VS Code and Open the Hangman Project Folder:**  
    - Go to **File > Open Folder** and select the folder containing your Hangman project files, including the sound files.  
-   - Open the terminal in VS Code by pressing **Ctrl + `** (backtick) or by going to **Terminal > New Terminal**.
-
+   - Open the terminal in VS Code
 2. **Compile the Game:**  
    In the terminal, run this command to compile your C file with sound support:  
    ```bash
    gcc -o play_sound filename.c -lwinmm
+   
 # Game Modes
 + **Competitive Mode:** Challenge a friend and see who guesses the word first.
 + **Word Guess Mode:** Guess the correct word from a list within a limited number of tries.
