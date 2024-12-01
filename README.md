@@ -22,7 +22,7 @@ To run the Hangman game, ensure you have the following installed:
 
 # Setup:
 1. **On Command Prompt:**\
-    **Navigate to the Hangman Project Folder:**\
+  1.  **Navigate to the Hangman Project Folder:**\
   + Open File Explorer and locate your Hangman project folder.\
   + Click on the folder path bar at the top, type cmd, and press Enter. This will open Command Prompt in that folder.\
 
@@ -31,17 +31,26 @@ To run the Hangman game, ensure you have the following installed:
      `gcc -o play_sound filename.c -lwinmm`\
  3.**Run the game:**\
     After successful compilation Run:\
-     `./play_sound`\
+     `./playsound`\
 
-+ **On Visual Studio Code:**\
-  Open VS Code and open the Hangman project folder:
-
-Go to File > Open Folder and select the folder containing your Hangman project files, including the sound files.
-Open the Terminal in VS Code:
-
-Press Ctrl + ` (backtick) or go to Terminal > New Terminal.
-Compile the Game:
-In the terminal, run this command to compile your C file with sound support:
+2. **On Visual Studio Code:**\
+  1.**Open VS Code and open the Hangman project folder:**\
+    Go to File > Open Folder and select the folder containing your Hangman project files, including the sound files.\
+    Open the Terminal in VS Code.\
+2. **Compile the Game:**\
+    In the terminal, run this command to compile your C file with sound support:\
+   `gcc -o play_sound filename.c -lwinmm`
+3.**Run the Game:**\
+    After compilation, run this command in the terminal:\
+   `./playound`
+# Game Modes
++ **Competitive Mode:**\ Challenge a friend and see who guesses the word first.
++ **Word Guess Mode:**\ Guess the correct word from a list within a limited number of tries.
++ **Solo Play Mode:**\ Play alone and test your word-guessing skills.
+# Troubleshooting:
++ **Command Not Found Error:** Ensure GCC is installed and added to your PATH.
++ **Sound Issues:** Confirm that the WinMM library is correctly linked and sound files are in the correct folder.
++ **Compilation Issues in VS Code:** Ensure you have the C/C++ extension installed and check for any terminal errors.
 
 
 
