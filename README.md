@@ -46,8 +46,8 @@ To run the Hangman game, ensure you have the following installed:
    gcc -o play_sound filename.c -lwinmm
  3.  **Run the game:**\
      After successful compilation Run:
-    ```bash
-    ./playsound
+     ``bash
+     ./playsound
 
      
 # Game Modes
