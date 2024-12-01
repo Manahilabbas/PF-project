@@ -23,13 +23,13 @@ To run the Hangman game, ensure you have the following installed:
 # Setup:
 + **On Command Prompt:**\
  1. **Navigate to the Hangman Project Folder:**\
-  + Open File Explorer and locate your Hangman project folder.
-  + Click on the folder path bar at the top, type cmd, and press Enter. This will open Command Prompt in that folder.
+  + Open File Explorer and locate your Hangman project folder.\
+  + Click on the folder path bar at the top, type cmd, and press Enter. This will open Command Prompt in that folder.\
  2.**Compile the Game:**\
-   Run the following command to compile the C file with sound support
+   Run the following command to compile the C file with sound support\
    `gcc -o play_sound filename.c -lwinmm`
  3.**Run the game:**\
-    After successful compilation Run:
+    After successful compilation Run:\
     `./play_sound`
 
 
